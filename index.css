@@ -158,8 +158,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: fit-content;
   padding: 60px 80px;
-  min-height: 80vh;
+  min-height: 40vh;
   background-color: black;
   background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836');
   background-size: cover;
@@ -200,11 +201,7 @@ body {
   transform: translateY(-3px);
 }
 
-.poster-image img {
-  width: 450px;
-  max-width: 100%;
-  border-radius: 20px;
-}
+
 /*popular section*/
 .popular{
   margin-top: 40px;
@@ -222,8 +219,19 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 20px;
   padding: 30px;
+  position: relative;
 }
+.favadd{
+  height: 500px;
+}
+#heading{
+  position: absolute;
+  top: 20%;
+  left: 15%;
 
+
+
+}
 .recipe-card {
   background: white;
   border-radius: 20px;
@@ -494,7 +502,7 @@ body {
   }
 
   .poster {
-    flex-direction: column;
+    height: fit-content;
     padding: 40px 20px;
     text-align: center;
   }
@@ -507,10 +515,7 @@ body {
     font-size: 1rem;
   }
 
-  .poster-image img {
-    width: 100%;
-    margin-top: 20px;
-  }
+  
 
   .card-grid,
   .hidden-card {
@@ -566,7 +571,10 @@ body {
   .logo {
     font-size: 20px;
   }
+    .poster{
+    height: fit-content;
 
+    }
   .nav-links li a {
     font-size: 16px;
   }

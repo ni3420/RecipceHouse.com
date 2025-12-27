@@ -160,12 +160,18 @@ for(let i=0;i<getlikerecipces.idMeal.length;i++)
     }
     
   }
+  
 
    
   }
   getdata()
   
   const cards=document.querySelector(".card-grid")
+ if(getlikerecipces.idMeal.length===0)
+  {
+    cards.innerHTML=`<h1 id="heading">No More Favourate Recipces</h1>`
+    cards.classList.add("favadd")
+  } 
 function cardsshow()
 {
     let box=document.createElement("div")
@@ -197,6 +203,7 @@ function cardsshow()
     let count=go-1;
     loadcounter(count);
     icon.innerHTML=count;
+    
 
 
   })
