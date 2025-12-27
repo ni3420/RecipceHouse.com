@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="categories.css">
+</head>
+<body>
+    
+<nav class="navbar">
+  <div class="logo">🍲 RecipeHouse</div>
+  <div class="Search-bar">
+    <input type="text" id="Search-bar" placeholder="Search The Recipce...">
+    <ul class="Search-item">
+      
+    </ul>
+  </div>
+
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="recipe.html">Recipes</a></li>
+    <li><a href="categories.html">Categories</a></li>
+    <li>
+  <a href="favourte.html">
+    Favourite
+    <span class="cart">🧾</span>
+    <span id="icon">0</span>
+  </a>
+</li>
+
+  </ul>
+
+  
+</nav>
+    <section class="categories">
+  <h1>Food categories</h1>
+
+  <div class="box-grid">
+    <button class="box active">Breakfast</button>
+    <button class="box">Lunch</button>
+    <button class="box">Dinner</button>
+    <button class="box">Dessert</button>
+  </div>
+</section>
+
+<section class="categoires-box">
+  <div class="title">
+    <span id="Food-Name">Breackfast ⬇</span>
+  </div>
+<div class="card-grid">
+  
+    
+    </div>
+
+</section>
+<footer class="footer">
+  <div class="footer-container">
+
+    <!-- Brand -->
+    <div class="footer-box">
+      <h2 class="footer-logo">🍲 RecipeHouse</h2>
+      <p>
+        Discover easy, healthy, and delicious recipes for every occasion.
+        Cook with love and enjoy every bite.
+      </p>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="footer-box">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="recipe.html">Recipes</a></li>
+        <li><a href="categories.html">Categories</a></li>
+        <li><a href="favourte.html">Watchlist</a></li>
+      </ul>
+    </div>
+
+    <!-- Categories -->
+    <div class="footer-box">
+      <h3>Categories</h3>
+      <ul>
+        <li><a href="categories.html">Breakfast</a></li>
+        <li><a href="categories.html">Lunch</a></li>
+        <li><a href="categories.html">Dinner</a></li>
+        <li><a href="categories.html">Desserts</a></li>
+      </ul>
+    </div>
+
+    <!-- Social -->
+    <div class="footer-box">
+      <h3>Follow Us</h3>
+      <div class="social-links">
+        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 RecipeHouse. All rights reserved.</p>
+  </div>
+</footer>
+
+ 
+<script>
+const icon=document.querySelector("#icon");
+const api=`https://www.themealdb.com/api/json/v1/1/filter.php?c=`
+
+let data=null;
+let cate="Breakfast"
+  const getdata=async(cate)=>{
+    try {
+      const res=await fetch(`${api}${cate}`)
+    data=await res.json()
+    console.log(data)
+    Food()
+      
+    } catch (error) {
+      console.log(error)
+    }
+    
+  }
+  getdata(cate);
+
+  //like funtion//
+  function loadcounter(counter)
+  {
+    localStorage.setItem("counter",JSON.stringify(counter))
+  }
+  //getcounter//
+  function getcounter()
+  {
+    const counter=localStorage.getItem("counter")
+    return counter?JSON.parse(counter):0;
+  }
+  let getfavcounter=getcounter();
+  console.log(getfavcounter,"oyet");
+  if(getfavcounter=="0")
+  {
+  icon.innerHTML=0;
+    
+  }
+  else{
+  icon.innerHTML=getfavcounter;
+
+  }
+ //start//
+
+ 
+  //liked recipces load localstorage//
+function loadlike(idMeal)
+{
+  const like={
+    idMeal:idMeal
+
+  }
+  localStorage.setItem("like",JSON.stringify(like));
+}
+//get the like from localstore//
+function getlike()
+{
+  const like=localStorage.getItem("like")
+  return like?JSON.parse(localStorage.getItem("like")):null;
+}
+let recipe=[]
+let getlikerecipces=getlike()
+
+  // load id fuction into loaclastorage//
+function loadid(id)
+{
+  localStorage.setItem("id",JSON.stringify(id))
+}
+//get the id from loaclstroage//
+function getid() {
+  const data = localStorage.getItem("id");
+  return data ? JSON.parse(data) : null;
+}
+
+let addid;
+let getidno=getid()
+
+const FoodName=document.querySelector(".Food-Name")
+  const box=document.querySelectorAll(".box")
+  const title=document.querySelector(".title")
+  const cards=document.querySelector(".card-grid")
+  box.forEach(f=>{
+    f.addEventListener("click",(e)=>{
+  box.forEach(f=>f.classList.remove("active"))
+f.classList.add("active")
+      cards.innerHTML=""
+      const Text=e.target.innerHTML
+      title.innerHTML=Text+"⬇";
+      console.log(Text)
+      if(Text==="Lunch")
+    {
+      let dish="Starter"
+      getdata(dish)
+    }
+    else if(Text==="Dinner")
+    {
+      let dish="Miscellaneous"
+      getdata(dish)
+    }
+
+    else{
+      getdata(Text)
+      console.log(data);
+
+    }
+
+    })
+  })
+  let count=0
+  function Food()
+{
+  for(let i=0;i<data.meals.length;i++)
+{
+
+
+
+        
+    let box=document.createElement("div")
+    box.className="recipe-card"
+    box.innerHTML=`    <div class="recipe-img">
+      <img src=${data.meals[i].strMealThumb} alt="" id="recipe-img">
+      </div>
+      <div class="recipe-content">
+        <button class="watchlist">❤</button>
+        <span id="idMeal">${data.meals[i].idMeal}</span>
+        <h3>${data.meals[i].strMeal}</h3>
+      </div>
+  
+  `;
+  cards.appendChild(box)
+box.addEventListener("click",()=>{
+    const ideMeal=box.querySelector("#idMeal")
+    addid=ideMeal.innerHTML;
+    loadid(addid)
+    window.location.href="mealinfo.html"
+  })
+  const watchlist=box.querySelector(".watchlist")
+  watchlist.addEventListener("click",(e)=>{
+    e.stopPropagation();
+watchlist.classList.toggle("like")
+ 
+console.log(e.target.nextElementSibling.innerHTML)
+console.log(e)
+if(e.target.classList.contains("like"))
+{
+   const alreadySaved = recipe.some(item => item.idMeal === idMeal);
+if(alreadySaved)
+{
+  alert("already")
+  return
+}
+  count=count+1
+loadcounter(count)
+let go=getcounter();
+   console.log(go,"inner");
+   icon.innerHTML=go;
+
+
+  console.log(e.target.className)
+    recipe.push({
+      idMeal:e.target.nextElementSibling.innerHTML
+    })
+    loadlike(recipe);
+  }else{
+    recipe = recipe.filter(item => item.idMeal !== e.target.nextElementSibling.innerHTML);
+    loadlike(recipe)
+    console.log(getlikerecipces);
+    count=count-1;
+    loadcounter(count)
+    let go=getcounter()
+    icon.innerHTML=go;
+    console.log(go)
+
+    
+    
+
+  }  })
+}
+
+
+}
+
+// Searching api fecth and get data //
+let Searchitem=null;
+const Searchurl=`https://www.themealdb.com/api/json/v1/1/filter.php?i=`
+const Searchitemlist=document.querySelector(".Search-item")
+const Searchbar=document.querySelector("#Search-bar")
+
+const Searchdata=async (item) => {
+  const res=await fetch(`${Searchurl}${item}`)
+
+  Searchitem=await res.json()
+  console.log(Searchitem);
+
+  for(let i=0;i<Searchitem.meals.length;i++)
+  {
+  let list=document.createElement("li")
+  list.className="list"
+  list.innerHTML=`
+ <img src= ${Searchitem.meals[i].strMealThumb}>
+  
+    <p >${Searchitem.meals[i].strMeal}</p>`
+  Searchitemlist.appendChild(list);
+  list.addEventListener("click",()=>{
+    addid=Number(Searchitem.meals[i].idMeal);
+    console.log()
+    loadid(addid);
+    window.location.href="mealinfo.html"
+  })
+  }
+
+  
+}
+// function for showing the Searching data//
+function Search()
+{
+Searchbar.addEventListener("input",()=>{
+  const Text=Searchbar.value;
+  console.log(Text);
+  if(Text==="")
+  {
+    Searchitemlist.innerHTML=""
+    return
+  }
+  else{
+    Searchdata(Text)
+  }
+})
+
+}
+Search()
+
+
+</script>
+
+</body>
+</html>

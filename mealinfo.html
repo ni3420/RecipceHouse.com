@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Meal-info Recipes</title>
+    <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <style>
+        
+        h1 {
+            text-align: center;
+        }
+        .recipe {
+            background: #ffffff;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+       .recipe img {
+            width: 100%;
+            height: 30%;
+            border-radius: 6px;
+        }
+        
+        iframe {
+            width: 100%;
+            height: 315px;
+            margin-top: 15px;
+            border-radius: 6px;
+        }
+        #Image{
+          width: 100%;
+          height: 200px;
+          object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+
+  <nav class="navbar">
+  <div class="logo">
+    <a href="index.html">🍲 RecipeHouse</a></div>
+  <div class="Search-bar">
+    <input type="text" id="Search-bar" placeholder="Search The Recipce...">
+    <ul class="Search-item">
+      
+    </ul>
+  </div>
+
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="recipe.html">Recipes</a></li>
+    <li><a href="categories.html">Categories</a></li>
+    <li>
+  <a href="favourte.html">
+    Favourite
+    <span class="cart">🧾</span>
+    <span id="icon">0</span>
+  </a>
+</li>
+  </ul>
+
+  
+</nav>
+
+<section class="recipe-card"></section>
+<footer class="footer">
+  <div class="footer-container">
+
+    <!-- Brand -->
+    <div class="footer-box">
+      <h2 class="footer-logo">🍲 RecipeHouse</h2>
+      <p>
+        Discover easy, healthy, and delicious recipes for every occasion.
+        Cook with love and enjoy every bite.
+      </p>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="footer-box">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="recipe.html">Recipes</a></li>
+        <li><a href="categories.html">Categories</a></li>
+        <li><a href="favourte.html">Watchlist</a></li>
+      </ul>
+    </div>
+
+    <!-- Categories -->
+    <div class="footer-box">
+      <h3>Categories</h3>
+      <ul>
+        <li><a href="categories.html">Breakfast</a></li>
+        <li><a href="categories.html">Lunch</a></li>
+        <li><a href="categories.html">Dinner</a></li>
+        <li><a href="categories.html">Desserts</a></li>
+      </ul>
+    </div>
+
+    <!-- Social -->
+    <div class="footer-box">
+      <h3>Follow Us</h3>
+      <div class="social-links">
+        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 RecipeHouse. All rights reserved.</p>
+  </div>
+</footer>
+
+
+<script>
+   function loadcounter(counter)
+  {
+    localStorage.setItem("counter",JSON.stringify(counter))
+  }
+  //getcounter//
+  function getcounter()
+  {
+    const counter=localStorage.getItem("counter")
+    return counter?JSON.parse(counter):null;
+  }
+  let getfavcounter=getcounter();
+  console.log(getfavcounter,"oyet");
+  icon.innerHTML=getfavcounter;
+// load id fuction into loaclastorage//
+function loadid(id)
+{
+  localStorage.setItem("id",JSON.stringify(id))
+}
+//get the id from loaclstroage//
+function getid() {
+  const data = localStorage.getItem("id");
+  return data ? JSON.parse(data) : null;
+}
+
+let addid;
+let getidno=getid()
+console.log(getidno)
+let data=null
+const cards=document.querySelector(".recipe-card")
+const api=`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${getidno}`
+const getdata=async()=>{
+  const res=await fetch(api);
+  data=await res.json()
+  console.log(data)
+
+  let box=document.createElement("div");
+  box.className="recipe"
+  box.innerHTML=`<h2>${data.meals[0].strMeal}</h2>
+    <img src=${data.meals[0].strMealThumb} alt="Spaghetti Pasta" id="Image">
+
+    <h3>Ingredients</h3>
+    <ul id="Ingredients">
+        
+    </ul>
+
+    <h3>Instructions</h3>
+    <ol>
+        ${extractpara(data.meals[0].strInstructions)}
+    </ol>
+    <h3>Measurement</h3>
+    <ul id="Measurement">
+      </ul>
+<h3>Watch Video</h3>
+    <iframe src="https://www.youtube.com/embed/${video(data.meals[0].strYoutube)}" allowfullscreen></iframe>`;
+    cards.appendChild(box);
+
+   for(let i=1;i<20;i++)
+{
+let Ingredients=box.querySelector("#Ingredients")
+let list=document.createElement("li")
+const Text=data.meals[0][`strIngredient${i}`]
+if(Text==="")
+{
+  return
+}else{
+list.innerHTML=Text
+Ingredients.appendChild(list);
+}
+ const Measurement=box.querySelector("#Measurement")
+  let listM=document.createElement("li")
+  let text=data.meals[0][`strMeasure${i}`]
+
+  
+  if(text===" ")
+{
+   return
+}
+else{
+  listM.innerHTML=text;
+  Measurement.appendChild(listM)
+
+}
+
+}
+  
+
+ 
+
+    function video(videoid)
+    {
+      return videoid.split("v=")[1];
+      console.log(videoid)
+
+    }
+
+ 
+function extractpara(para) {
+let removewords=["","STEP","the"]
+
+  return para
+    .split(".")
+    .filter(step => !removewords.includes(step))
+    .map(step => `<li>${step.trim()}.</li>`)
+    .join("");
+}
+
+
+
+}
+getdata()
+
+
+// Searching api fecth and get data //
+let Searchitem=null;
+const Searchurl=`https://www.themealdb.com/api/json/v1/1/filter.php?i=`
+const Searchitemlist=document.querySelector(".Search-item")
+const Searchbar=document.querySelector("#Search-bar")
+
+const Searchdata=async (item) => {
+  const res=await fetch(`${Searchurl}${item}`)
+
+  Searchitem=await res.json()
+  console.log(Searchitem);
+
+  for(let i=0;i<Searchitem.meals.length;i++)
+  {
+  let list=document.createElement("li")
+  list.className="list"
+  list.innerHTML=`
+ <img src= ${Searchitem.meals[i].strMealThumb}>
+  
+    <p >${Searchitem.meals[i].strMeal}</p>`
+  Searchitemlist.appendChild(list);
+  list.addEventListener("click",()=>{
+    addid=Number(Searchitem.meals[i].idMeal);
+    console.log()
+    loadid(addid);
+    window.location.href="mealinfo.html"
+  })
+  }
+
+  
+}
+// function for showing the Searching data//
+function Search()
+{
+Searchbar.addEventListener("input",()=>{
+  const Text=Searchbar.value;
+  console.log(Text);
+  if(Text==="")
+  {
+    Searchitemlist.innerHTML=""
+    return
+  }
+  else{
+    Searchdata(Text)
+  }
+})
+
+}
+Search()
+
+</script>
+
+</body>
+</html>

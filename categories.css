@@ -1,0 +1,45 @@
+.categories {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.categories h1 {
+  margin-bottom: 25px;
+}
+
+.box-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.box {
+  padding: 30px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 15px;
+  border: none;
+  cursor: pointer;
+
+  background: black;
+  color: white;
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.box:active {
+  transform: scale(0.98);
+}
+.active{
+  background-color: rgb(73, 119, 73);
+}
+
+
+
