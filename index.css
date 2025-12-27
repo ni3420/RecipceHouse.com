@@ -10,6 +10,7 @@
 
 body {
   background-color: #fafafa;
+  overflow-x: hidden;
 }
 /* navbar section*/
 
@@ -20,8 +21,8 @@ body {
   padding: 12px 20px;
   background:black;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  position: relative;
   z-index: 100;
+  position: relative;
   top: 0;
 
 }
@@ -70,6 +71,7 @@ body {
   padding: 10px 10px;
 }
 
+
 #cart {
   font-size: 22px;
   margin: 0;
@@ -98,7 +100,7 @@ body {
   position: relative;
 }
 #Search-bar{
-  width: 400px;
+  max-width: 500px;
   border-radius: 10px;
   color: black;
   font-size: 10px;
@@ -487,6 +489,9 @@ body {
   display: grid;
 }
 /* mobie respnsive*/
+@media (max-width:900px) {
+
+}
 @media (max-width: 768px) {
 
   .navbar {

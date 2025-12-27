@@ -8,7 +8,7 @@ const Trendinghiddencard=document.querySelector(".Trending .hidden-card")
 const More=document.querySelector(".popular #More")
 let count=0;
 const gettrendingdata=async () => {
-  for(let i=0;i<8;i++)
+  for(let i=0;i<9;i++)
   {
   const res=await fetch(popularurl)
   trendingdata=await res.json()
@@ -21,7 +21,7 @@ const gettrendingdata=async () => {
 }
 gettrendingdata()
 const getpopulardata=async () => {
- for(let i=0;i<8;i++)
+ for(let i=0;i<9;i++)
   {
   const res=await fetch(popularurl)
   populardata=await res.json()
