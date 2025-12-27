@@ -283,6 +283,15 @@ Searchbar.addEventListener("input",()=>{
 
 }
 Search()
+Searchbar.addEventListener("focus", () => {
+  Searchitemlist.style.display = "block";
+});
+
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".Search-bar")) {
+    Searchitemlist.style.display = "none";
+  }
+});
 
 </script>
 

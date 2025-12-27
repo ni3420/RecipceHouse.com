@@ -381,6 +381,16 @@ const Searchurl=`https://www.themealdb.com/api/json/v1/1/filter.php?i=`
 const Searchitemlist=document.querySelector(".Search-item")
 const Searchbar=document.querySelector("#Search-bar")
 
+Searchbar.addEventListener("focus", () => {
+  Searchitemlist.style.display = "block";
+});
+
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".Search-bar")) {
+    Searchitemlist.style.display = "none";
+  }
+});
+//api fuction for fextching searching data
 const Searchdata=async (item) => {
   const res=await fetch(`${Searchurl}${item}`)
 

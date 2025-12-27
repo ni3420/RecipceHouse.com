@@ -26,9 +26,10 @@ body {
   top: 0;
 
 }
-.Search-bar:focus-within .Search-item {
-  display: block;
-}
+
+
+
+
 .logo {
   color: white;
   font-size: 24px;
